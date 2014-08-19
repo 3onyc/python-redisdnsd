@@ -36,14 +36,13 @@ class DNSServer(DatagramServer):
         )
 
     def handle(self, data, address):
-        print '%s: got %r' % (address[0], data)
+        print "DEBUG Received request from %s" % (address[0])
         request = DNSRecord.parse(data)
         response = self.response_from_request(request, qr=1, aa=1, ra=1)
 
         for question in request.questions:
             qname = question.qname
             qtype = dnslib.QTYPE[question.qtype]
-            print qtype
 
             return_value = self.store.lookup(qname, qtype)
             if return_value is None:
@@ -55,5 +54,5 @@ class DNSServer(DatagramServer):
 
             response.add_question(question)
 
-        print response
+        print "DEBUG Response: \n%s" % response
         self.socket.sendto(response.pack(), address)
