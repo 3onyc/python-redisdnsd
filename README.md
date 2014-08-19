@@ -2,6 +2,8 @@
 
 An authorative DNS server written in Python+gevent that uses Redis as a backend
 
+**NOTE** This is very much an experiment, use at your own risk.
+
 ## Installation / Usage
 
 1. Clone the repository
